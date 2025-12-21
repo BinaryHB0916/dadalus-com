@@ -1,0 +1,19 @@
+baseURL = 'https://dadalus.com'
+languageCode = 'zh-cn'
+title = 'DaDalus'
+theme = 'PaperMod'
+
+[params]
+  defaultTheme = "auto"
+  ShowReadingTime = true
+  
+  [params.homeInfoParams]
+    Title = "Hi there 👋"
+    Content = "Welcome to DaDalus's blog."
+
+[menu]
+  [[menu.main]]
+    identifier = "posts"
+    name = "Posts"
+    url = "/posts/"
+    weight = 10
