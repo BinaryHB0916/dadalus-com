@@ -1,4 +1,4 @@
-baseURL = 'https://dadalus.com'
+baseURL = 'https://www.dadalus.com'
 languageCode = 'zh-cn'
 title = 'DaDalus'
 theme = 'PaperMod'
