@@ -1,0 +1,188 @@
+<footer class="footer">
+  <span>@Cyborg Candidate</span>
+</footer>
+
+{{- partial "extend_footer.html" . }}
+
+<script>
+    let menu = document.getElementById('menu');
+    if (menu) {
+        const scrollPosition = localStorage.getItem("menu-scroll-position");
+        if (scrollPosition) {
+            menu.scrollLeft = parseInt(scrollPosition, 10);
+        }
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+</script>
+
+<!-- 彩蛋：雨夜 + 闪电 + 蝙蝠 -->
+<div id="rain-container"></div>
+<div id="lightning"></div>
+<div id="bat">🦇</div>
+
+<!-- 彩蛋：阳光 + 尘埃 + 太阳 -->
+<div id="sunshine-container"></div>
+<div id="sun-rays"></div>
+<div id="sun">☀️</div>
+
+{{- if (not site.Params.disableThemeToggle) }}
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        const html = document.querySelector("html");
+        if (html.dataset.theme === "dark") {
+            html.dataset.theme = 'light';
+            localStorage.setItem("pref-theme", 'light');
+            stopRain();
+            startSunshine();
+        } else {
+            html.dataset.theme = 'dark';
+            localStorage.setItem("pref-theme", 'dark');
+            stopSunshine();
+            startRain();
+        }
+    })
+
+    // 页面加载时检查主题
+    if (document.querySelector("html").dataset.theme === "dark") {
+        startRain();
+    } else if (document.querySelector("html").dataset.theme === "light") {
+        startSunshine();
+    }
+
+    // ===== 暗黑模式：雨夜 =====
+    function startRain() {
+        const container = document.getElementById('rain-container');
+        container.innerHTML = '';
+        container.style.display = 'block';
+
+        for (let i = 0; i < 100; i++) {
+            const drop = document.createElement('div');
+            drop.className = 'rain-drop';
+            drop.style.left = Math.random() * 100 + '%';
+            drop.style.animationDuration = (Math.random() * 0.5 + 0.3) + 's';
+            drop.style.animationDelay = Math.random() * 2 + 's';
+            container.appendChild(drop);
+        }
+
+        triggerLightning();
+        window.lightningInterval = setInterval(triggerLightning, 5000 + Math.random() * 5000);
+
+        // 雨滴溅射效果
+        startSplashEffect();
+    }
+
+    function startSplashEffect() {
+        const posts = document.querySelectorAll('.first-entry, article');
+        if (posts.length === 0) return;
+
+        window.splashInterval = setInterval(() => {
+            posts.forEach(post => {
+                if (Math.random() > 0.7) {
+                    createSplash(post);
+                }
+            });
+        }, 500);
+    }
+
+    function createSplash(element) {
+        const rect = element.getBoundingClientRect();
+        const splash = document.createElement('div');
+        splash.className = 'rain-splash';
+        splash.style.left = (rect.left + Math.random() * rect.width) + 'px';
+        splash.style.top = rect.top + 'px';
+        document.body.appendChild(splash);
+
+        setTimeout(() => splash.remove(), 600);
+    }
+
+    function stopRain() {
+        const container = document.getElementById('rain-container');
+        container.style.display = 'none';
+        container.innerHTML = '';
+        clearInterval(window.lightningInterval);
+        clearInterval(window.splashInterval);
+        document.getElementById('lightning').style.opacity = '0';
+        document.getElementById('bat').style.opacity = '0';
+        // 清除残留的溅射效果
+        document.querySelectorAll('.rain-splash').forEach(el => el.remove());
+    }
+
+    function triggerLightning() {
+        const lightning = document.getElementById('lightning');
+        const bat = document.getElementById('bat');
+
+        lightning.style.opacity = '1';
+        bat.style.opacity = '1';
+
+        setTimeout(() => {
+            lightning.style.opacity = '0';
+            bat.style.opacity = '0';
+        }, 100);
+
+        setTimeout(() => {
+            lightning.style.opacity = '0.7';
+            bat.style.opacity = '1';
+        }, 200);
+
+        setTimeout(() => {
+            lightning.style.opacity = '0';
+            bat.style.opacity = '0';
+        }, 300);
+    }
+
+    // ===== 白天模式：阳光 =====
+    function startSunshine() {
+        const container = document.getElementById('sunshine-container');
+        const sunRays = document.getElementById('sun-rays');
+        const sun = document.getElementById('sun');
+
+        container.innerHTML = '';
+        container.style.display = 'block';
+        sunRays.style.display = 'block';
+        sun.style.opacity = '1';
+
+        // 创建漂浮的金色尘埃粒子
+        for (let i = 0; i < 50; i++) {
+            const dust = document.createElement('div');
+            dust.className = 'dust-particle';
+            dust.style.left = Math.random() * 100 + '%';
+            dust.style.top = Math.random() * 100 + '%';
+            dust.style.animationDuration = (Math.random() * 3 + 2) + 's';
+            dust.style.animationDelay = Math.random() * 2 + 's';
+            container.appendChild(dust);
+        }
+    }
+
+    function stopSunshine() {
+        const container = document.getElementById('sunshine-container');
+        const sunRays = document.getElementById('sun-rays');
+        const sun = document.getElementById('sun');
+
+        container.style.display = 'none';
+        container.innerHTML = '';
+        sunRays.style.display = 'none';
+        sun.style.opacity = '0';
+    }
+</script>
+{{- end }}

@@ -1,19 +1,32 @@
 baseURL = 'https://dadalus.com'
 languageCode = 'zh-cn'
-title = 'DaDalus'
+title = "段少🎵DaDalus's Blog"
 theme = 'PaperMod'
 
 [params]
   defaultTheme = "auto"
   ShowReadingTime = true
-  
-  [params.homeInfoParams]
-    Title = "Hi there 👋"
-    Content = "Welcome to DaDalus's blog."
+  ShowPostNavLinks = true
+  ShowBreadCrumbs = false
+  ShowShareButtons = false
+
+  # 首页直接显示文章列表
+  disableSpecialSearchPages = true
+
+  # 底部版权
+  [params.label]
+    text = "段少🎵DaDalus's Blog"
+
+  [[params.socialIcons]]
+    name = "x"
+    url = "https://x.com/BinaryHB"
+
+[params.footer]
+  copyright = "@Cyborg Candidate"
 
 [menu]
   [[menu.main]]
-    identifier = "posts"
-    name = "Posts"
-    url = "/posts/"
+    identifier = "x"
+    name = "𝕏"
+    url = "https://x.com/BinaryHB"
     weight = 10
