@@ -24,7 +24,7 @@ hugo new posts/my-post.md
 ## Tech Stack
 
 - **Static Site Generator**: Hugo
-- **Theme**: PaperMod v8.0 (git submodule in `themes/PaperMod`)
+- **Theme**: PaperMod (git submodule in `themes/PaperMod`, pinned to 7d061d5)
 - **Language**: Chinese (zh-cn)
 
 ## Structure
