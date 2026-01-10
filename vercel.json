@@ -6,5 +6,6 @@
   },
   "git": {
     "submodules": true
-  }
+  },
+  "buildCommand": "rm -f themes/PaperMod/go.mod && hugo --gc --minify"
 }
