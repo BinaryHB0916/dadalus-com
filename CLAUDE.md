@@ -2,6 +2,14 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## Work Philosophy
+
+- 知行合一，快速迭代 - "如果要对要错，让我自己来"
+- 一人公司 / 独立开发者路线
+- Repo 代码要简洁
+- 有简洁的 README
+- 不要过度工程化
+
 ## Project Overview
 
 Personal blog for dadalus.com built with Hugo and the PaperMod theme.
