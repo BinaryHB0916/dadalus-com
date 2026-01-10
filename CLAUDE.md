@@ -1,1 +1,43 @@
- task1: 我想把我的 2 个过关网站，全部从 cloudflare 上迁移到 GitHub Pages。一个是 dadalus.com，一个是 Calis.AI。先迁移前者试试水。
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Project Overview
+
+Personal blog for dadalus.com built with Hugo and the PaperMod theme.
+
+## Commands
+
+```bash
+# Development
+hugo server -D       # Start dev server with drafts
+hugo server          # Start dev server without drafts
+
+# Build
+hugo --gc --minify   # Production build (same as Vercel)
+hugo                 # Basic build
+
+# Create content
+hugo new posts/my-post.md
+```
+
+## Tech Stack
+
+- **Static Site Generator**: Hugo
+- **Theme**: PaperMod v8.0 (git submodule in `themes/PaperMod`)
+- **Language**: Chinese (zh-cn)
+
+## Structure
+
+- `content/posts/` - Blog posts in Markdown
+- `hugo.toml` - Site configuration (base URL, theme, menu)
+- `themes/PaperMod/` - Theme submodule
+
+## Deployment
+
+All projects deploy to **Vercel** (not GitHub Pages).
+
+Configured via `vercel.json`:
+- Hugo version: 0.146.0
+- Git submodules enabled for theme
+- Build uses `rm -f themes/PaperMod/go.mod` before Hugo build (PaperMod's go.mod triggers Hugo Module mode, which conflicts with submodule install)

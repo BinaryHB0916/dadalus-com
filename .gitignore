@@ -1,0 +1,24 @@
+# Hugo
+/public/
+/resources/_gen/
+.hugo_build.lock
+
+# Note: themes/PaperMod/go.mod cannot be ignored here (it's in submodule)
+# The vercel.json buildCommand uses `rm -f` to handle Hugo Module conflict
+
+# System files
+.DS_Store
+.AppleDouble
+.LSOverride
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Environment
+.env
+.env.local
+.env.*.local
