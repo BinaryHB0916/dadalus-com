@@ -45,6 +45,15 @@ body.list .footer {
   letter-spacing: 0.3em;
   text-transform: uppercase;
   opacity: 0.7;
+  border: none !important;
+  border-top: none !important;
+  box-shadow: none !important;
+}
+
+/* 移除 main 区域底部边框 */
+body.list .main {
+  border: none !important;
+  border-bottom: none !important;
 }
 
 body.list .footer:hover {
@@ -64,6 +73,32 @@ body.list .main {
 body:not(.list) .header,
 body:not(.list) .footer {
   display: none;
+}
+
+/* 文章页 - 完全隐藏所有特效容器（确保阅读不受干扰） */
+body:not(.list) #rain-container,
+body:not(.list) #lightning,
+body:not(.list) #bat,
+body:not(.list) #sunshine-container,
+body:not(.list) #sun-rays,
+body:not(.list) #sun,
+body:not(.list) .rain-drop,
+body:not(.list) .dust-particle,
+body:not(.list) .rain-splash {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+}
+
+/* 文章页 - 禁用文章边框特效 */
+body:not(.list) .first-entry::before,
+body:not(.list) .first-entry::after,
+body:not(.list) .post-entry::before,
+body:not(.list) .post-entry::after,
+body:not(.list) article::before,
+body:not(.list) article::after {
+  display: none !important;
+  content: none !important;
 }
 
 /* 右上角菜单链接放大 */
@@ -201,7 +236,7 @@ html:not([data-theme="dark"]) article.post-entry:hover {
   border-radius: 8px;
   box-shadow: 0 0 15px rgba(100, 150, 200, 0.15);
   position: relative;
-  overflow: visible;
+  overflow: hidden;
 }
 
 [data-theme="dark"] .first-entry::before,
@@ -455,4 +490,159 @@ html:not([data-theme="dark"]) #theme-toggle::after {
 /* 夜晚模式显示太阳 emoji */
 [data-theme="dark"] #theme-toggle::after {
   content: "☀️";
+}
+
+/* ===== 移动端适配 ===== */
+@media screen and (max-width: 768px) {
+  /* 固定顶栏 - 移动端 */
+  body.list .header {
+    padding-top: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  /* 标题字体缩小 */
+  .logo a {
+    font-size: 1.2rem !important;
+  }
+
+  /* 主题切换按钮 */
+  #theme-toggle::after {
+    font-size: 1.2rem;
+  }
+
+  /* 右上角菜单链接 */
+  #menu a {
+    font-size: 1.1rem;
+  }
+
+  /* 固定底栏 - 移动端 */
+  body.list .footer {
+    font-size: 0.9rem;
+    letter-spacing: 0.15em;
+    padding: 15px 10px;
+  }
+
+  /* 中间内容区域 - 移动端 */
+  body.list .main {
+    margin-top: 70px;
+    margin-bottom: 60px;
+    padding: 0 10px;
+  }
+
+  /* 文章列表 - 移动端 */
+  .first-entry {
+    padding: 12px 15px !important;
+    margin: 10px 0 !important;
+  }
+
+  .post-entry {
+    padding: 12px 15px !important;
+    margin-bottom: 10px !important;
+  }
+
+  /* 文章标题 - 移动端 */
+  .entry-header h2 {
+    font-size: 1.1rem !important;
+    line-height: 1.4 !important;
+  }
+
+  /* 文章摘要 - 移动端 */
+  .entry-content {
+    font-size: 0.85rem !important;
+  }
+
+  /* 蝙蝠 - 移动端 */
+  #bat {
+    font-size: 2.5rem;
+    bottom: 80px;
+    right: 20px;
+  }
+
+  /* 太阳 - 移动端 */
+  #sun {
+    font-size: 2rem;
+    top: 15px;
+    right: 50px;
+  }
+
+  /* 太阳光线 - 移动端 */
+  #sun-rays {
+    width: 200px;
+    height: 200px;
+    top: -30px;
+    right: -30px;
+  }
+}
+
+/* 更小屏幕适配 */
+@media screen and (max-width: 480px) {
+  /* 标题更小 */
+  .logo a {
+    font-size: 1rem !important;
+  }
+
+  /* 底栏字体更小 */
+  body.list .footer {
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+  }
+
+  /* 文章标题 */
+  .entry-header h2 {
+    font-size: 1rem !important;
+  }
+
+  /* 隐藏太阳（屏幕太小） */
+  #sun {
+    display: none;
+  }
+
+  #sun-rays {
+    width: 150px;
+    height: 150px;
+  }
+}
+
+/* ===== 文章阅读页样式 ===== */
+body:not(.list) .post-content {
+  line-height: 1.8;
+}
+
+/* 文章阅读页 - 移动端 */
+@media screen and (max-width: 768px) {
+  body:not(.list) .post-header h1 {
+    font-size: 1.5rem !important;
+    line-height: 1.3;
+  }
+
+  body:not(.list) .post-content {
+    font-size: 1rem;
+    line-height: 1.75;
+    padding: 0 5px;
+  }
+
+  body:not(.list) .post-content p {
+    margin-bottom: 1rem;
+  }
+
+  body:not(.list) .post-content h2 {
+    font-size: 1.3rem;
+    margin-top: 1.5rem;
+  }
+
+  body:not(.list) .post-content h3 {
+    font-size: 1.1rem;
+    margin-top: 1.2rem;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  body:not(.list) .post-header h1 {
+    font-size: 1.3rem !important;
+  }
+
+  body:not(.list) .post-content {
+    font-size: 0.95rem;
+  }
 }

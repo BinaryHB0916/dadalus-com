@@ -36,38 +36,57 @@
     });
 </script>
 
-<!-- 彩蛋：雨夜 + 闪电 + 蝙蝠 -->
+{{- if .IsHome }}
+<!-- 彩蛋：雨夜 + 闪电 + 蝙蝠（仅首页） -->
 <div id="rain-container"></div>
 <div id="lightning"></div>
 <div id="bat">🦇</div>
 
-<!-- 彩蛋：阳光 + 尘埃 + 太阳 -->
+<!-- 彩蛋：阳光 + 尘埃 + 太阳（仅首页） -->
 <div id="sunshine-container"></div>
 <div id="sun-rays"></div>
 <div id="sun">☀️</div>
+{{- end }}
 
 {{- if (not site.Params.disableThemeToggle) }}
 <script>
+    // 检查是否在首页（列表页）- 只有首页才显示天气特效
+    const isHomePage = document.body.classList.contains('list');
+
     document.getElementById("theme-toggle").addEventListener("click", () => {
         const html = document.querySelector("html");
         if (html.dataset.theme === "dark") {
             html.dataset.theme = 'light';
             localStorage.setItem("pref-theme", 'light');
-            stopRain();
-            startSunshine();
+            // 仅首页切换特效
+            if (isHomePage) {
+                stopRain();
+                startSunshine();
+            }
         } else {
             html.dataset.theme = 'dark';
             localStorage.setItem("pref-theme", 'dark');
-            stopSunshine();
-            startRain();
+            // 仅首页切换特效
+            if (isHomePage) {
+                stopSunshine();
+                startRain();
+            }
         }
     })
 
-    // 页面加载时检查主题
-    if (document.querySelector("html").dataset.theme === "dark") {
-        startRain();
-    } else if (document.querySelector("html").dataset.theme === "light") {
-        startSunshine();
+    // 页面加载时检查主题（仅首页显示特效）
+    if (isHomePage) {
+        const html = document.querySelector("html");
+        const theme = html.dataset.theme;
+        // 处理 auto 模式：检查系统偏好
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const isDark = theme === "dark" || (theme !== "light" && prefersDark);
+
+        if (isDark) {
+            startRain();
+        } else {
+            startSunshine();
+        }
     }
 
     // ===== 暗黑模式：雨夜 =====
